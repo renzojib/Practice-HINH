@@ -28,12 +28,16 @@
     },
     "plugins": [
       "expo-router",
+<<<<<<< HEAD
       [
         "expo-font",
           {
             "fonts": ["./assets/fonts/Crimson_Text/CrimsonText-Bold.ttf", "./assets/fonts/Crimson_Text/CrimsonText-Regular.ttf", "./assets/fonts/Crimson_Text/CrimsonText-Italic.ttf", "./assets/fonts/Gothic_A1/GothicA1-Bold.ttf", "./assets/fonts/Gothic_A1/GothicA1-Regular.ttf", "./assets/fonts/Gothic_A1/GothiA1-ExtraBold.ttf"]
           }
       ]
+=======
+      "expo-font"
+>>>>>>> ebf6be0 (updates .gitignore, adds expo-fonts package)
     ],
     "experiments": {
       "typedRoutes": true
