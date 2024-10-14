@@ -4,7 +4,8 @@ function Header () {
     return(
         <View style={styles.container}>
             <ImageBackground /*source={}*/ resizeMode="cover" style={styles.image}>
-                <Text style={styles.header1}>History of the Web</Text>
+                <Text style={styles.header1}>HELP</Text>
+                <Text style={[styles.header1, styles.yellowGreen]}>IS HERE</Text>
             </ImageBackground>
         </View>
     );
@@ -29,6 +30,9 @@ const styles = StyleSheet.create({
       fontSize: 32,
       color: "#DDDDDD",
       fontFamily: "CourierPrimeBold",
+    },
+    yellowGreen: {
+      color: "#c3c554ff",
     }
   });
 
