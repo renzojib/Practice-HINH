@@ -13,8 +13,14 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+    "SpaceMono": require('../assets/fonts/SpaceMono-Regular.ttf'),
+    "GothicA1-ExtraBold": require('../assets/fonts/Gothic_A1/GothicA1-ExtraBold.ttf'),
+    "GothicA1-Bold": require('../assets/fonts/Gothic_A1/GothicA1-Bold.ttf'),
+    "GothicA1-Regular": require('../assets/fonts/Gothic_A1/GothicA1-Regular.ttf'),
+    "CrimsonText-Bold": require('../assets/fonts/Crimson_Text/CrimsonText-Bold.ttf'),
+    "CrimsonText-Regular": require('../assets/fonts/Crimson_Text/CrimsonText-Regular.ttf'),
+    "CrimsonText-Italic": require('../assets/fonts/Crimson_Text/CrimsonText-Italic.ttf')
+});
 
   useEffect(() => {
     if (loaded) {
