@@ -7,7 +7,7 @@ function Header () {
                 <Text style={styles.header1}>History of the Web</Text>
             </ImageBackground>
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
