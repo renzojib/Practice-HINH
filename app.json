@@ -28,7 +28,12 @@
     },
     "plugins": [
       "expo-router",
-      "expo-font"
+      [
+        "expo-font",
+          {
+            "fonts": ["./assets/fonts/Crimson_Text/CrimsonText-Bold.ttf", "./assets/fonts/Crimson_Text/CrimsonText-Regular.ttf", "./assets/fonts/Crimson_Text/CrimsonText-Italic.ttf", "./assets/fonts/Gothic_A1/GothicA1-Bold.ttf", "./assets/fonts/Gothic_A1/GothicA1-Regular.ttf", "./assets/fonts/Gothic_A1/GothiA1-ExtraBold.ttf"]
+          }
+      ]
     ],
     "experiments": {
       "typedRoutes": true
