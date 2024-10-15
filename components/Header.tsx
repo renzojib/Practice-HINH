@@ -3,36 +3,46 @@ import { ImageBackground, Platform, StatusBar, StyleSheet, Text, View } from "re
 function Header () {
     return(
         <View style={styles.container}>
-            <ImageBackground /*source={}*/ resizeMode="cover" style={styles.image}>
-                <Text style={styles.header1}>HELP</Text>
-                <Text style={[styles.header1, styles.yellowGreen]}>IS HERE</Text>
-            </ImageBackground>
+          <View style={{marginVertical: "auto", padding: 10}}>
+                <Text style={styles.header1}>HELP
+                <Text style={[styles.header1, styles.yellowGreen]}> IS HERE</Text>
+                </Text>
+                <Text style={styles.subHeader1}>Cuyahoga Community College</Text>
+          </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-      marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-      borderTopColor: "#001f54",
+      marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 45,
+      borderTopColor: "#268787ff",
       borderTopWidth: 2,
       width: "100%",
-      height: 80,
-    },
-    image: {
-      height: "100%",
-      width: "100%",
-      borderRadius: 30,
+      backgroundColor: "#009999",
+      height: 100,
     },
     header1: {
       textAlign: "center",
-      marginVertical: "auto",
-      fontSize: 32,
+      fontSize: 45,
       color: "#DDDDDD",
-      fontFamily: "CourierPrimeBold",
+      fontFamily: "GothicA1-Black",
+      textShadowColor: 'black', 
+      textShadowOffset: { width: -1, height: 0 },
+      textShadowRadius: 1,
     },
     yellowGreen: {
       color: "#c3c554ff",
+    },
+    subHeader1: {
+      fontSize: 20,
+      marginTop: -5,
+      color: "white",
+      textAlign: "center",
+      fontFamily: "CrimsonText-Regular",
+      textShadowColor: 'black', 
+      textShadowOffset: { width: -1, height: 0 },
+      textShadowRadius: 1,
     }
   });
 

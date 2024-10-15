@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import Header from '@/components/Header';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -14,6 +15,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     "SpaceMono": require('../assets/fonts/SpaceMono-Regular.ttf'),
+    "GothicA1-Black": require('../assets/fonts/Gothic_A1/GothicA1-Black.ttf'),
     "GothicA1-ExtraBold": require('../assets/fonts/Gothic_A1/GothicA1-ExtraBold.ttf'),
     "GothicA1-Bold": require('../assets/fonts/Gothic_A1/GothicA1-Bold.ttf'),
     "GothicA1-Regular": require('../assets/fonts/Gothic_A1/GothicA1-Regular.ttf'),
@@ -34,6 +36,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Header></Header>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
