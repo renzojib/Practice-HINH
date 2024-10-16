@@ -11,8 +11,6 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  const color = "#0f8"
-
   return (
     <Tabs
       initialRouteName='/helpMe/index'
