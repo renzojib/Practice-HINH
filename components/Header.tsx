@@ -15,7 +15,7 @@ function Header () {
 
 const styles = StyleSheet.create({
     container: {
-      marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 45,
+      marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
       borderTopColor: "#268787ff",
       borderTopWidth: 2,
       width: "100%",

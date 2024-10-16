@@ -5,33 +5,53 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+// icons needed for tab bar
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <Tabs
+      initialRouteName='/helpMe/index'
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
       }}>
-      <Tabs.Screen
+        <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          href: null,
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
+        />
+        <Tabs.Screen
+          name="helpMe/index"
+          options={{
+            title: 'Help Me',
+            tabBarIcon: ({ color, focused }) => (
+              <Ionicons name={focused ? 'hand-left' : 'hand-left-outline'} color={color} size={24} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="helpOthers/index"
+          options={{
+            title: 'Help Others',
+            tabBarIcon: ({ color, focused }) => (
+              <MaterialCommunityIcons name={focused ? "handshake" : "handshake-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="emergencyContacts/index"
+          options={{
+            title: 'E-Contacts',
+            tabBarIcon: ({ color, focused }) => (
+              <MaterialCommunityIcons name={focused ? "plus-thick" : "plus-outline"} size={24} color={color} />
+            ),
+          }}
+        />
     </Tabs>
   );
 }
