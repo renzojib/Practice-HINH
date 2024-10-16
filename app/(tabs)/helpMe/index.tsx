@@ -18,9 +18,9 @@ const HelpMe = () => {
   return (
     <GestureHandlerRootView style={styles.container}>
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={styles.container}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0}
       >
         <ScrollView>
           <SafeAreaView>
