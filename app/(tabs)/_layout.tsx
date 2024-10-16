@@ -7,6 +7,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 
 // icons needed for tab bar
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -29,7 +30,7 @@ export default function TabLayout() {
           options={{
             title: 'Help Me',
             tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+              <Ionicons name={focused ? 'hand-left' : 'hand-left-outline'} color={color} size={24} />
             ),
           }}
         />
@@ -47,7 +48,7 @@ export default function TabLayout() {
           options={{
             title: 'E-Contacts',
             tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+              <MaterialCommunityIcons name={focused ? "plus-thick" : "plus-outline"} size={24} color={color} />
             ),
           }}
         />
