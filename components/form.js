@@ -1,5 +1,4 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
 import {
   View,
   Text,
@@ -8,11 +7,11 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  useColorScheme,
-  SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  useColorScheme,
 } from "react-native";
+import { useForm, Controller } from "react-hook-form";
 import { useFormData } from "@/components/FormDataContext.js";
 import Icon from "react-native-vector-icons/Ionicons";
 import logo from "@/assets/images/banner1.jpg";
@@ -101,41 +100,35 @@ function MyForm() {
   };
 
   return (
-    <ScrollView
-      style={styles(isDarkMode).scrollContainer}
-      contentContainerStyle={styles(isDarkMode).contentContainer}
-      showsVerticalScrollIndicator={false}
-    >
-      <View style={styles(isDarkMode).innerContainer}>
-        <Image source={logo} style={styles(isDarkMode).image} />
+    <View style={styles(isDarkMode).innerContainer}>
+      <Image source={logo} style={styles(isDarkMode).image} />
 
-        {/* Contact Information Header */}
-        <View style={styles(isDarkMode).header}>
-          <Icon name="person-circle-outline" size={50} color="#004f71" />
-          <Text style={styles(isDarkMode).contactText}>
-            Contact Information
-          </Text>
-        </View>
-
-        {/* Render fields for 4 contacts */}
-        {[...Array(4)].map((_, index) => renderContactFields(index))}
-
-        {/* Submit Button */}
-        <TouchableOpacity
-          style={styles(isDarkMode).button}
-          onPress={handleSubmit(onSubmit)}
-        >
-          <Text style={styles(isDarkMode).text}>Submit</Text>
-        </TouchableOpacity>
+      {/* Contact Information Header */}
+      <View style={styles(isDarkMode).header}>
+        <Icon name="person-circle-outline" size={50} color="#004f71" />
+        <Text style={styles(isDarkMode).contactText}>Contact Information</Text>
       </View>
-    </ScrollView>
+
+      {/* Render fields for 4 contacts */}
+      {[...Array(4)].map((_, index) => renderContactFields(index))}
+
+      {/* Submit Button */}
+      <TouchableOpacity
+        style={styles(isDarkMode).button}
+        onPress={handleSubmit(onSubmit)}
+      >
+        <Text style={styles(isDarkMode).text}>Submit</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = (isDarkMode) =>
   StyleSheet.create({
+    keyboardAvoidingView: {
+      flex: 1,
+    },
     scrollContainer: {
-      height: "100%",
       flex: 1,
       backgroundColor: isDarkMode ? "#121212" : "#fff",
     },
@@ -149,11 +142,9 @@ const styles = (isDarkMode) =>
     },
     image: {
       width: "80%",
-      height: 200,
+      height: 180,
       resizeMode: "contain",
       alignSelf: "center",
-      marginBottom: 30,
-      marginTop: 20,
     },
     header: {
       alignItems: "center",
@@ -214,6 +205,7 @@ const styles = (isDarkMode) =>
       elevation: 5,
       width: "60%",
       marginTop: 25,
+      marginBottom: 25,
       shadowColor: "#000",
       shadowOffset: { width: 5, height: 5 },
       shadowOpacity: 0.8,

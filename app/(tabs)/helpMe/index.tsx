@@ -1,14 +1,15 @@
 import React from "react";
 import {
-  StyleSheet,
-  SafeAreaView,
-  Platform,
-  KeyboardAvoidingView,
-} from "react-native";
-import {
   ScrollView,
   GestureHandlerRootView,
 } from "react-native-gesture-handler";
+
+import {
+  SafeAreaView,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+} from "react-native";
 
 import MyForm from "@/components/form";
 import { FormDataProvider } from "@/components/FormDataContext";
@@ -19,6 +20,7 @@ const HelpMe = () => {
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
+        keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
       >
         <ScrollView>
           <SafeAreaView>
@@ -38,7 +40,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   titleContainer: {
     flexDirection: "row",
     alignItems: "center",
