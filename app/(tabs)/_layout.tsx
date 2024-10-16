@@ -19,33 +19,39 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
       }}>
-      <Tabs.Screen
-        name="helpMe/index"
+        <Tabs.Screen
+        name="index"
         options={{
-          title: 'Help Me',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          href: null,
         }}
-      />
-      <Tabs.Screen
-        name="helpOthers/index"
-        options={{
-          title: 'Help Others',
-          tabBarIcon: ({ color, focused }) => (
-            <MaterialCommunityIcons name={focused ? "handshake" : "handshake-outline"} size={24} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="emergencyContacts/index"
-        options={{
-          title: 'E-Contacts',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
+        />
+        <Tabs.Screen
+          name="helpMe/index"
+          options={{
+            title: 'Help Me',
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="helpOthers/index"
+          options={{
+            title: 'Help Others',
+            tabBarIcon: ({ color, focused }) => (
+              <MaterialCommunityIcons name={focused ? "handshake" : "handshake-outline"} size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="emergencyContacts/index"
+          options={{
+            title: 'E-Contacts',
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            ),
+          }}
+        />
     </Tabs>
   );
 }
