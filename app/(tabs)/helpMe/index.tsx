@@ -4,8 +4,6 @@ import {
   SafeAreaView,
   Platform,
   KeyboardAvoidingView,
-  View,
-  Text,
 } from "react-native";
 import {
   ScrollView,
