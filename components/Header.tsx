@@ -1,4 +1,4 @@
-import { ImageBackground, Platform, StatusBar, StyleSheet, Text, View } from "react-native";
+import {Platform, StatusBar, StyleSheet, Text, View } from "react-native";
 
 function Header () {
     return(
