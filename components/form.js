@@ -114,21 +114,21 @@ function MyForm() {
               )}
             </View>
           </View>
-        </Collapsible>
 
-        {/* Submit Button */}
-        <TouchableOpacity
-          style={[
-            styles.button,
-            { backgroundColor: isValid ? "#004f71" : "gray" }, // Disable button when form is invalid
-          ]}
-          onPress={handleSubmit(onSubmit)}
-          disabled={!isValid} // Disable button if form is not valid
-        >
-          <Text style={styles.text}>
-            {isEditing ? "Update Contact" : "Add Contact"}
-          </Text>
-        </TouchableOpacity>
+          {/* Submit Button */}
+          <TouchableOpacity
+            style={[
+              styles.button,
+              { backgroundColor: isValid ? "#004f71" : "gray" }, // Disable button when form is invalid
+            ]}
+            onPress={handleSubmit(onSubmit)}
+            disabled={!isValid} // Disable button if form is not valid
+          >
+            <Text style={styles.text}>
+              {isEditing ? "Update Contact" : "Add Contact"}
+            </Text>
+          </TouchableOpacity>
+        </Collapsible>
 
         {/* List of Added Contacts */}
         <View style={styles.contactsList}>
