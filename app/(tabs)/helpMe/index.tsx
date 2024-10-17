@@ -37,8 +37,11 @@ const HelpMe = () => {
     return (
         <View ref={viewRef} onLayout={handleLayout} style={styles.container}>
             <Image source={image} style={[styles.bgImage, {top: (height * 0.5) - (350 * 0.5) }]}/>
-            <Text style={styles.text}>Help Me</Text>
-            <Button value="My Support Network" onPress={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
+            <Text style={styles.titleText}>Help Me</Text>
+            <Button value="Get Help Now" route={() => router.push("/(tabs)/helpMe/additionalPages/getHelpNow")}></Button>
+            <Button value="My Support Network" route={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
+            <Button value="My Support Network" route={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
+            <Button value="My Support Network" route={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
         </View>
     )
 }
@@ -60,11 +63,12 @@ const styles = StyleSheet.create({
         position: "absolute",
         alignSelf: "center",
       },
-      text: {
+      titleText: {
         color: 'white',
         fontSize: 32,
         fontFamily: "GothicA1-Regular",
         textAlign: 'center',
         marginTop: "5%",
+        marginBottom: 20,
       },
 })

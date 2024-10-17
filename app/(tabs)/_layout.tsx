@@ -33,6 +33,12 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
+          name="helpMe/additionalPages/getHelpNow"
+          options={{
+            href: null,
+          }}
+        />
+        <Tabs.Screen
           name="helpMe/index"
           options={{
             title: 'Help Me',
