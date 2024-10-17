@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  Appearance,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Collapsible } from "./Collapsible";
@@ -23,6 +24,25 @@ function MyForm() {
   const [contacts, setContacts] = useState([]); // State to store contacts
   const [isEditing, setIsEditing] = useState(false); // Track if editing
   const [editIndex, setEditIndex] = useState(null); // Track index for editing
+
+  const [theme, setTheme] = useState(Appearance.getColorScheme());
+
+  useEffect(() => {
+    const subscription = Appearance.addChangeListener(({ colorScheme }) => {
+      setTheme(colorScheme);
+    });
+    return () => subscription.remove();
+  }, []);
+
+  const colors = {
+    background: theme === "dark" ? "#1e1e1e" : "#fff",
+    cardBackground: theme === "dark" ? "#2c2c2c" : "#f0f0f0",
+    borderColor: theme === "dark" ? "#444" : "#ccc",
+    textColor: theme === "dark" ? "#fff" : "#000",
+    buttonColor: isValid ? "#004f71" : "gray",
+    buttonTextColor: "#fff",
+    errorTextColor: "red",
+  };
 
   const onSubmit = (data) => {
     if (isEditing && editIndex !== null) {
@@ -54,7 +74,12 @@ function MyForm() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
+    <ScrollView
+      contentContainerStyle={[
+        styles.scrollContainer,
+        { backgroundColor: colors.background },
+      ]}
+    >
       <View style={styles.innerContainer}>
         {/* Contact Form */}
         <Collapsible title="Enter Emergency Contacts">
@@ -67,7 +92,13 @@ function MyForm() {
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
-                    style={styles.input}
+                    style={[
+                      styles.input,
+                      {
+                        borderColor: colors.borderColor,
+                        color: colors.textColor,
+                      },
+                    ]}
                     placeholder="Contact Name"
                     placeholderTextColor="#555"
                   />
@@ -77,7 +108,9 @@ function MyForm() {
                 rules={{ required: "Contact name is required" }}
               />
               {errors.contactName && (
-                <Text style={styles.errorText}>
+                <Text
+                  style={[styles.errorText, { color: colors.errorTextColor }]}
+                >
                   {errors.contactName.message}
                 </Text>
               )}
@@ -91,7 +124,13 @@ function MyForm() {
                     onBlur={onBlur}
                     onChangeText={onChange}
                     value={value}
-                    style={styles.input}
+                    style={[
+                      styles.input,
+                      {
+                        borderColor: colors.borderColor,
+                        color: colors.textColor,
+                      },
+                    ]}
                     placeholder="Phone Number"
                     placeholderTextColor="#555"
                     keyboardType="phone-pad"
@@ -108,7 +147,9 @@ function MyForm() {
                 }}
               />
               {errors.phoneNumber && (
-                <Text style={styles.errorText}>
+                <Text
+                  style={[styles.errorText, { color: colors.errorTextColor }]}
+                >
                   {errors.phoneNumber.message}
                 </Text>
               )}
@@ -117,14 +158,11 @@ function MyForm() {
 
           {/* Submit Button */}
           <TouchableOpacity
-            style={[
-              styles.button,
-              { backgroundColor: isValid ? "#004f71" : "gray" }, // Disable button when form is invalid
-            ]}
+            style={[styles.button, { backgroundColor: colors.buttonColor }]}
             onPress={handleSubmit(onSubmit)}
             disabled={!isValid} // Disable button if form is not valid
           >
-            <Text style={styles.text}>
+            <Text style={[styles.text, { color: colors.buttonTextColor }]}>
               {isEditing ? "Update Contact" : "Add Contact"}
             </Text>
           </TouchableOpacity>
@@ -133,8 +171,16 @@ function MyForm() {
         {/* List of Added Contacts */}
         <View style={styles.contactsList}>
           {contacts.map((contact, index) => (
-            <View key={index} style={styles.contactCard}>
-              <Text style={styles.contactCardText}>
+            <View
+              key={index}
+              style={[
+                styles.contactCard,
+                { backgroundColor: colors.cardBackground },
+              ]}
+            >
+              <Text
+                style={[styles.contactCardText, { color: colors.textColor }]}
+              >
                 {contact.contactName} - {contact.phoneNumber}
               </Text>
               <View style={styles.actionButtons}>
@@ -179,8 +225,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: "gray",
-    color: "#000",
+    color: "#000", // Default text color
     padding: 10,
     marginBottom: 5,
     width: "100%",
@@ -201,7 +246,6 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
   },
   contactsList: {
     width: "100%",
@@ -209,7 +253,6 @@ const styles = StyleSheet.create({
   },
   contactCard: {
     padding: 15,
-    backgroundColor: "#f0f0f0",
     borderRadius: 8,
     marginBottom: 15,
   },
@@ -236,7 +279,6 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   errorText: {
-    color: "red",
     fontSize: 12,
     marginBottom: 10,
   },
