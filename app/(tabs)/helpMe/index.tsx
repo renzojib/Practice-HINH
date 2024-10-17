@@ -21,6 +21,7 @@ const HelpMe = () => {
         setHeight(() => event.nativeEvent.layout.height)
         // remember that you can wrap the next line in a timeOut in order to access the .height
         // if the above version stops working
+        // the method used on the other index.tsx pages is working fine
     };
     
     // useEffect(() => {
