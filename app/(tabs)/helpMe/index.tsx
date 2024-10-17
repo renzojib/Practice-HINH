@@ -1,3 +1,4 @@
+
 import { Image, StyleSheet, Text, View } from "react-native"
 import { useEffect, useRef, useState } from "react"
 import Button from "@/components/Button"
@@ -72,3 +73,4 @@ const styles = StyleSheet.create({
         marginBottom: 20,
       },
 })
+
