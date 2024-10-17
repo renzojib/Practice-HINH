@@ -5,12 +5,10 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import Icon from "react-native-vector-icons/Ionicons";
-import { Collapsible } from "@/components/Collapsible";
+import { Collapsible } from "./Collapsible";
 
 function MyForm() {
   const {
@@ -18,8 +16,10 @@ function MyForm() {
     handleSubmit,
     reset,
     setValue,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onChange", // Trigger validation on change
+  });
   const [contacts, setContacts] = useState([]); // State to store contacts
   const [isEditing, setIsEditing] = useState(false); // Track if editing
   const [editIndex, setEditIndex] = useState(null); // Track index for editing
@@ -57,7 +57,7 @@ function MyForm() {
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.innerContainer}>
         {/* Contact Form */}
-        <Collapsible title={"Add contacts"}>
+        <Collapsible title="Enter Emergency Contacts">
           <View style={styles.inputRow}>
             <View style={styles.inputWrapper}>
               <Controller
@@ -118,8 +118,12 @@ function MyForm() {
 
         {/* Submit Button */}
         <TouchableOpacity
-          style={styles.button}
+          style={[
+            styles.button,
+            { backgroundColor: isValid ? "#004f71" : "gray" }, // Disable button when form is invalid
+          ]}
           onPress={handleSubmit(onSubmit)}
+          disabled={!isValid} // Disable button if form is not valid
         >
           <Text style={styles.text}>
             {isEditing ? "Update Contact" : "Add Contact"}
@@ -164,22 +168,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  image: {
-    width: "80%",
-    height: 180,
-    resizeMode: "contain",
-    alignSelf: "center",
-  },
-  header: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  contactText: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#004f71",
-    marginTop: 10,
-  },
   inputRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -198,7 +186,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   button: {
-    backgroundColor: "#004f71",
     paddingVertical: 12,
     alignItems: "center",
     justifyContent: "center",
