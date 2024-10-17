@@ -5,9 +5,10 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import DraggableFlatList from "react-native-draggable-flatlist"; // Import DraggableFlatList
+import { Collapsible } from "./Collapsible";
 
 function MyForm() {
   const {
@@ -17,31 +18,29 @@ function MyForm() {
     setValue,
     formState: { errors, isValid },
   } = useForm({
-    mode: "onChange",
-    defaultValues: {
-      contactName: "",
-      phoneNumber: "",
-    },
+    mode: "onChange", // Trigger validation on change
   });
-
-  const [contacts, setContacts] = useState([]);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editIndex, setEditIndex] = useState(null);
+  const [contacts, setContacts] = useState([]); // State to store contacts
+  const [isEditing, setIsEditing] = useState(false); // Track if editing
+  const [editIndex, setEditIndex] = useState(null); // Track index for editing
 
   const onSubmit = (data) => {
     if (isEditing && editIndex !== null) {
+      // Edit existing contact
       const updatedContacts = [...contacts];
       updatedContacts[editIndex] = data;
       setContacts(updatedContacts);
       setIsEditing(false);
       setEditIndex(null);
     } else {
+      // Add new contact
       setContacts([...contacts, data]);
     }
-    reset();
+    reset(); // Reset the form after submit
   };
 
   const handleEdit = (index) => {
+    // Set form values to the selected contact's values for editing
     setValue("contactName", contacts[index].contactName);
     setValue("phoneNumber", contacts[index].phoneNumber);
     setIsEditing(true);
@@ -49,111 +48,119 @@ function MyForm() {
   };
 
   const handleDelete = (index) => {
+    // Remove contact from list
     const filteredContacts = contacts.filter((_, i) => i !== index);
     setContacts(filteredContacts);
   };
 
-  const moveContact = (fromIndex, toIndex) => {
-    const updatedContacts = [...contacts];
-    const [movedContact] = updatedContacts.splice(fromIndex, 1);
-    updatedContacts.splice(toIndex, 0, movedContact);
-    setContacts(updatedContacts);
-  };
-
-  const renderContactItem = ({ item, index, drag, isActive }) => {
-    return (
-      <TouchableOpacity
-        onLongPress={drag}
-        style={[styles.contactCard, isActive && styles.activeCard]}
-      >
-        <Text style={styles.contactCardText}>
-          {item.contactName} - {item.phoneNumber}
-        </Text>
-      </TouchableOpacity>
-    );
-  };
-
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.innerContainer}>
-        <View style={styles.inputRow}>
-          <View style={styles.inputWrapper}>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  style={styles.input}
-                  placeholder="Contact Name"
-                  placeholderTextColor="#555"
-                />
+        {/* Contact Form */}
+        <Collapsible title="Enter Emergency Contacts">
+          <View style={styles.inputRow}>
+            <View style={styles.inputWrapper}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    placeholder="Contact Name"
+                    placeholderTextColor="#555"
+                  />
+                )}
+                name="contactName"
+                defaultValue=""
+                rules={{ required: "Contact name is required" }}
+              />
+              {errors.contactName && (
+                <Text style={styles.errorText}>
+                  {errors.contactName.message}
+                </Text>
               )}
-              name="contactName"
-              rules={{ required: "Contact name is required" }}
-            />
-            {errors.contactName && (
-              <Text style={styles.errorText}>{errors.contactName.message}</Text>
-            )}
-          </View>
+            </View>
 
-          <View style={styles.inputWrapper}>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  style={styles.input}
-                  placeholder="Phone Number"
-                  placeholderTextColor="#555"
-                  keyboardType="phone-pad"
-                />
+            <View style={styles.inputWrapper}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    placeholder="Phone Number"
+                    placeholderTextColor="#555"
+                    keyboardType="phone-pad"
+                  />
+                )}
+                name="phoneNumber"
+                defaultValue=""
+                rules={{
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "Enter a valid phone number (10 digits)",
+                  },
+                }}
+              />
+              {errors.phoneNumber && (
+                <Text style={styles.errorText}>
+                  {errors.phoneNumber.message}
+                </Text>
               )}
-              name="phoneNumber"
-              rules={{
-                required: "Phone number is required",
-                pattern: {
-                  value: /^[0-9]{10}$/,
-                  message: "Enter a valid phone number (10 digits)",
-                },
-              }}
-            />
-            {errors.phoneNumber && (
-              <Text style={styles.errorText}>{errors.phoneNumber.message}</Text>
-            )}
+            </View>
           </View>
-        </View>
+        </Collapsible>
 
+        {/* Submit Button */}
         <TouchableOpacity
           style={[
             styles.button,
-            { backgroundColor: isValid ? "#004f71" : "gray" },
+            { backgroundColor: isValid ? "#004f71" : "gray" }, // Disable button when form is invalid
           ]}
           onPress={handleSubmit(onSubmit)}
-          disabled={!isValid}
+          disabled={!isValid} // Disable button if form is not valid
         >
           <Text style={styles.text}>
             {isEditing ? "Update Contact" : "Add Contact"}
           </Text>
         </TouchableOpacity>
 
-        <DraggableFlatList
-          data={contacts}
-          renderItem={renderContactItem}
-          keyExtractor={(item, index) => index.toString()}
-          onDragEnd={({ data }) => setContacts(data)}
-        />
+        {/* List of Added Contacts */}
+        <View style={styles.contactsList}>
+          {contacts.map((contact, index) => (
+            <View key={index} style={styles.contactCard}>
+              <Text style={styles.contactCardText}>
+                {contact.contactName} - {contact.phoneNumber}
+              </Text>
+              <View style={styles.actionButtons}>
+                <TouchableOpacity
+                  onPress={() => handleEdit(index)}
+                  style={styles.editButton}
+                >
+                  <Text style={styles.buttonText}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleDelete(index)}
+                  style={styles.deleteButton}
+                >
+                  <Text style={styles.buttonText}>Delete</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ))}
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  scrollContainer: {
     paddingBottom: 30,
     paddingHorizontal: 20,
   },
@@ -196,14 +203,15 @@ const styles = StyleSheet.create({
     letterSpacing: 0.25,
     color: "white",
   },
+  contactsList: {
+    width: "100%",
+    marginTop: 20,
+  },
   contactCard: {
     padding: 15,
     backgroundColor: "#f0f0f0",
     borderRadius: 8,
     marginBottom: 15,
-  },
-  activeCard: {
-    backgroundColor: "#d0d0d0",
   },
   contactCardText: {
     fontSize: 18,
