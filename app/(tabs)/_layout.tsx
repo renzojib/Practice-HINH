@@ -8,6 +8,7 @@ import { useColorScheme } from '@/hooks/useColorScheme';
 // icons needed for tab bar
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import Header from '@/components/Header';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -24,6 +25,18 @@ export default function TabLayout() {
         options={{
           href: null,
         }}
+        />
+        <Tabs.Screen
+          name="helpMe/additionalPages/addContacts"
+          options={{
+            href: null,
+          }}
+        />
+        <Tabs.Screen
+          name="helpMe/additionalPages/getHelpNow"
+          options={{
+            href: null,
+          }}
         />
         <Tabs.Screen
           name="helpMe/index"
