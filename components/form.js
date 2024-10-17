@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import Icon from "react-native-vector-icons/Ionicons";
-import logo from "@/assets/images/banner1.jpg";
+import { Collapsible } from "@/components/Collapsible";
 
 function MyForm() {
   const {
@@ -56,69 +56,65 @@ function MyForm() {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <View style={styles.innerContainer}>
-        <Image source={logo} style={styles.image} />
-
-        {/* Form Header */}
-        <View style={styles.header}>
-          <Icon name="person-circle-outline" size={50} color="#004f71" />
-          <Text style={styles.contactText}>
-            {isEditing ? "Edit Contact" : "Add Contact"}
-          </Text>
-        </View>
-
         {/* Contact Form */}
-        <View style={styles.inputRow}>
-          <View style={styles.inputWrapper}>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  style={styles.input}
-                  placeholder="Contact Name"
-                  placeholderTextColor="#555"
-                />
+        <Collapsible title={"Add contacts"}>
+          <View style={styles.inputRow}>
+            <View style={styles.inputWrapper}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    placeholder="Contact Name"
+                    placeholderTextColor="#555"
+                  />
+                )}
+                name="contactName"
+                defaultValue=""
+                rules={{ required: "Contact name is required" }}
+              />
+              {errors.contactName && (
+                <Text style={styles.errorText}>
+                  {errors.contactName.message}
+                </Text>
               )}
-              name="contactName"
-              defaultValue=""
-              rules={{ required: "Contact name is required" }}
-            />
-            {errors.contactName && (
-              <Text style={styles.errorText}>{errors.contactName.message}</Text>
-            )}
-          </View>
+            </View>
 
-          <View style={styles.inputWrapper}>
-            <Controller
-              control={control}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <TextInput
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  value={value}
-                  style={styles.input}
-                  placeholder="Phone Number"
-                  placeholderTextColor="#555"
-                  keyboardType="phone-pad"
-                />
+            <View style={styles.inputWrapper}>
+              <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <TextInput
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    style={styles.input}
+                    placeholder="Phone Number"
+                    placeholderTextColor="#555"
+                    keyboardType="phone-pad"
+                  />
+                )}
+                name="phoneNumber"
+                defaultValue=""
+                rules={{
+                  required: "Phone number is required",
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: "Enter a valid phone number (10 digits)",
+                  },
+                }}
+              />
+              {errors.phoneNumber && (
+                <Text style={styles.errorText}>
+                  {errors.phoneNumber.message}
+                </Text>
               )}
-              name="phoneNumber"
-              defaultValue=""
-              rules={{
-                required: "Phone number is required",
-                pattern: {
-                  value: /^[0-9]{10}$/,
-                  message: "Enter a valid phone number (10 digits)",
-                },
-              }}
-            />
-            {errors.phoneNumber && (
-              <Text style={styles.errorText}>{errors.phoneNumber.message}</Text>
-            )}
+            </View>
           </View>
-        </View>
+        </Collapsible>
 
         {/* Submit Button */}
         <TouchableOpacity

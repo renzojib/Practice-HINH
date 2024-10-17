@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 import MyForm from "@/components/form";
+import { Collapsible } from "@/components/Collapsible";
 import { FormDataProvider } from "@/components/FormDataContext";
 
 const HelpMe = () => {
