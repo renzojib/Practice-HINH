@@ -19,7 +19,7 @@ const HelpMe = () => {
     <GestureHandlerRootView style={styles.container}>
       <KeyboardAvoidingView
         style={styles.container}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        behavior={Platform.OS === "ios" ? "position" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0}
       >
         <ScrollView>
