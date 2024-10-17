@@ -1,5 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native"
 import { useEffect, useRef, useState } from "react"
+import Button from "@/components/Button"
+import { router } from "expo-router"
 
 // interface Layout {
 //     height: number,
@@ -36,7 +38,7 @@ const HelpMe = () => {
         <View ref={viewRef} onLayout={handleLayout} style={styles.container}>
             <Image source={image} style={[styles.bgImage, {top: (height * 0.5) - (350 * 0.5) }]}/>
             <Text style={styles.text}>Help Me</Text>
-
+            <Button value="My Support Network" onPress={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
         </View>
     )
 }

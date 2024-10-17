@@ -3,11 +3,12 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 
 type Props = PropsWithChildren<{
-    value: string;
+    value: string,
+    onPress: () => void,
   }>;
 function Button (prop: Props ) {
     return(
-    <Pressable onPress={() => {}}>
+    <Pressable onPress={prop.onPress} >
         <Text>{prop.value}</Text>
       </Pressable>
       );
