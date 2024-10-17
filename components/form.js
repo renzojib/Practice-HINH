@@ -101,7 +101,6 @@ function MyForm() {
 
   return (
     <View style={styles(isDarkMode).innerContainer}>
-      <Image source={logo} style={styles(isDarkMode).image} />
 
       {/* Contact Information Header */}
       <View style={styles(isDarkMode).header}>
@@ -148,7 +147,7 @@ const styles = (isDarkMode) =>
     },
     header: {
       alignItems: "center",
-      marginBottom: 20,
+      marginVertical: 20,
     },
     contactText: {
       fontSize: 24,
