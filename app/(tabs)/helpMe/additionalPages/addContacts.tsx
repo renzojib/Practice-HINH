@@ -17,11 +17,7 @@ import { FormDataProvider } from "@/components/FormDataContext";
 const AddContacts = () => {
   return (
     <GestureHandlerRootView style={styles.container}>
-      <KeyboardAvoidingView
-        style={styles.container}
-        behavior={Platform.OS === "ios" ? "position" : "height"}
-        keyboardVerticalOffset={Platform.OS === "ios" ? 150 : 0}
-      >
+    
         <ScrollView>
           <SafeAreaView>
             <FormDataProvider>
@@ -29,7 +25,6 @@ const AddContacts = () => {
             </FormDataProvider>
           </SafeAreaView>
         </ScrollView>
-      </KeyboardAvoidingView>
     </GestureHandlerRootView>
   );
 };
