@@ -1,5 +1,7 @@
 import { Image, StyleSheet, Text, View } from "react-native"
 import { useState } from "react"
+import Button from "@/components/Button"
+import { router } from "expo-router"
 
 const HelpOthers = () => {
     const image = require("../../../assets/images/communityCircle2.png")
@@ -9,6 +11,9 @@ const HelpOthers = () => {
         <View onLayout={(event) => {
             setHeight(() => event.nativeEvent.layout.height);
           }} style={styles.container}>
+            <View style={styles.back}>
+              <Button value="Back" onPress={() => router.back()}></Button>
+            </View>
             <Image source={image} style={[styles.bgImage, {top: (height * 0.5) - (350 * 0.5) }]}/>
             <Text style={styles.text}>Help Others</Text>
 
@@ -40,4 +45,18 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: "5%",
       },
+      back: {
+        backgroundColor: "#004f71",
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 5,
+        width: "30%",
+        marginTop: 25,
+        marginBottom: 25,
+        shadowColor: "#000",
+        shadowOffset: { width: 5, height: 5 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+      }
 })

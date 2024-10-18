@@ -1,4 +1,5 @@
 import React from "react";
+import { router } from "expo-router";
 import {
   View,
   Text,
@@ -15,6 +16,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useFormData } from "@/components/FormDataContext.js";
 import Icon from "react-native-vector-icons/Ionicons";
 import logo from "@/assets/images/banner1.jpg";
+import Button from "./Button";
 
 function MyForm() {
   const { setSubmittedData } = useFormData();
@@ -100,6 +102,10 @@ function MyForm() {
   };
 
   return (
+    <>
+    <View style={styles.back}>
+          <Button value="Back" onPress={() => router.back()}></Button>
+      </View>
     <View style={styles(isDarkMode).innerContainer}>
       <Image source={logo} style={styles(isDarkMode).image} />
 
@@ -120,6 +126,7 @@ function MyForm() {
         <Text style={styles(isDarkMode).text}>Submit</Text>
       </TouchableOpacity>
     </View>
+    </>
   );
 }
 
@@ -211,6 +218,20 @@ const styles = (isDarkMode) =>
       shadowOpacity: 0.8,
       shadowRadius: 2,
     },
+    back: {
+      backgroundColor: "#004f71",
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 5,
+      width: "30%",
+      marginTop: 25,
+      marginBottom: 25,
+      shadowColor: "#000",
+      shadowOffset: { width: 5, height: 5 },
+      shadowOpacity: 0.8,
+      shadowRadius: 2,
+    }
   });
 
 export default MyForm;

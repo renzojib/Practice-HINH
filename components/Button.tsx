@@ -7,15 +7,16 @@ type Props = PropsWithChildren<{
     onPress: () => void,
   }>;
 function Button (prop: Props ) {
-    return(
-    <Pressable onPress={prop.onPress} >
-        <Text>{prop.value}</Text>
+    return(<Pressable onPress={prop.onPress} >
+        <Text style={styles.text}>{prop.value}</Text>
       </Pressable>
       );
 }
 
 const styles = StyleSheet.create({
-    
+    text: {
+      color: "#fff"
+    }
 })
 
 export default Button;
