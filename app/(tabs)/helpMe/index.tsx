@@ -1,5 +1,5 @@
 
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Image, StyleSheet, Text, View, Linking, Platform } from "react-native"
 import { useEffect, useRef, useState } from "react"
 import Button from "@/components/Button"
 import { router } from "expo-router"
@@ -14,10 +14,22 @@ import { router } from "expo-router"
 // }
 
 const HelpMe = () => {
+      
     const image = require("../../../assets/images/communityCircle2.png")
     const [height, setHeight] = useState(0)
     // const [layout, setLayout] = useState({} as Layout);
     const viewRef = useRef(null);
+
+    const openMap = (address: string) => {
+        const url = Platform.select({
+            ios: `maps:0,0?q=${address}`,
+            android: `geo:0,0?q=${address}`,
+          })
+
+          if(url) {
+            Linking.openURL(url)
+          }
+    }
     
     const handleLayout = (event: any) => {
         event.persist()
@@ -39,10 +51,10 @@ const HelpMe = () => {
         <View ref={viewRef} onLayout={handleLayout} style={styles.container}>
             <Image source={image} style={[styles.bgImage, {top: (height * 0.5) - (350 * 0.5) }]}/>
             <Text style={styles.titleText}>Help Me</Text>
-            <Button value="Get Help Now" route={() => router.push("/(tabs)/helpMe/additionalPages/getHelpNow")}></Button>
-            <Button value="My Support Network" route={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
-            <Button value="My Support Network" route={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
-            <Button value="My Support Network" route={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
+            <Button value="Get Help Now" onPress={() => router.push("/(tabs)/helpMe/additionalPages/getHelpNow")}></Button>
+            <Button value="My Support Network" onPress={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
+            <Button value="Emergency location" onPress={() => openMap("9105 Cedar Ave, Cleveland Ohio")}></Button>
+            <Button value="My Support Network" onPress={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
         </View>
     )
 }
