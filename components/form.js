@@ -1,4 +1,3 @@
-import call from "react-native-phone-call";
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -216,7 +215,15 @@ function MyForm() {
               <Text
                 style={[styles.contactCardText, { color: colors.textColor }]}
               >
-                {contact.contactName} - {contact.phoneNumber}
+                {contact.contactName}:
+                <Text
+                  onPress={() => {
+                    Linking.openURL(`tel:${contact.phoneNumber}`);
+                  }}
+                >
+                  {" "}
+                  {contact.phoneNumber}
+                </Text>
               </Text>
               <View style={styles.actionButtons}>
                 <TouchableOpacity
