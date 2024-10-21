@@ -12,19 +12,15 @@ import {
 } from "react-native";
 
 import MyForm from "@/components/form";
-import { FormDataProvider } from "@/components/FormDataContext";
 
 const AddContacts = () => {
   return (
     <GestureHandlerRootView style={styles.container}>
-    
-        <ScrollView>
-          <SafeAreaView>
-            <FormDataProvider>
-              <MyForm />
-            </FormDataProvider>
-          </SafeAreaView>
-        </ScrollView>
+      <ScrollView>
+        <SafeAreaView>
+          <MyForm />
+        </SafeAreaView>
+      </ScrollView>
     </GestureHandlerRootView>
   );
 };

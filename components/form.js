@@ -7,9 +7,12 @@ import {
   StyleSheet,
   ScrollView,
   Appearance,
+  Linking,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
+import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 import { Collapsible } from "./Collapsible";
+import Icon from "react-native-vector-icons/Ionicons";
 
 function MyForm() {
   const {
@@ -21,16 +24,31 @@ function MyForm() {
   } = useForm({
     mode: "onChange", // Trigger validation on change
   });
+
   const [contacts, setContacts] = useState([]); // State to store contacts
   const [isEditing, setIsEditing] = useState(false); // Track if editing
   const [editIndex, setEditIndex] = useState(null); // Track index for editing
-
   const [theme, setTheme] = useState(Appearance.getColorScheme());
 
+  // Load saved contacts on component mount
   useEffect(() => {
+    const loadContacts = async () => {
+      try {
+        const storedContacts = await AsyncStorage.getItem("contacts");
+        if (storedContacts) {
+          setContacts(JSON.parse(storedContacts));
+        }
+      } catch (e) {
+        console.log("Failed to load contacts:", e);
+      }
+    };
+
     const subscription = Appearance.addChangeListener(({ colorScheme }) => {
       setTheme(colorScheme);
     });
+
+    loadContacts(); // Load contacts on component mount
+
     return () => subscription.remove();
   }, []);
 
@@ -44,18 +62,28 @@ function MyForm() {
     errorTextColor: "red",
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    let updatedContacts;
     if (isEditing && editIndex !== null) {
       // Edit existing contact
-      const updatedContacts = [...contacts];
+      updatedContacts = [...contacts];
       updatedContacts[editIndex] = data;
-      setContacts(updatedContacts);
       setIsEditing(false);
       setEditIndex(null);
     } else {
       // Add new contact
-      setContacts([...contacts, data]);
+      updatedContacts = [...contacts, data];
     }
+
+    setContacts(updatedContacts);
+
+    // Save the contacts to AsyncStorage
+    try {
+      await AsyncStorage.setItem("contacts", JSON.stringify(updatedContacts));
+    } catch (e) {
+      console.log("Failed to save contacts:", e);
+    }
+
     reset(); // Reset the form after submit
   };
 
@@ -67,10 +95,17 @@ function MyForm() {
     setEditIndex(index);
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
     // Remove contact from list
     const filteredContacts = contacts.filter((_, i) => i !== index);
     setContacts(filteredContacts);
+
+    // Update the stored contacts in AsyncStorage
+    try {
+      await AsyncStorage.setItem("contacts", JSON.stringify(filteredContacts));
+    } catch (e) {
+      console.log("Failed to delete contact:", e);
+    }
   };
 
   return (
@@ -181,8 +216,29 @@ function MyForm() {
               <Text
                 style={[styles.contactCardText, { color: colors.textColor }]}
               >
-                {contact.contactName} - {contact.phoneNumber}
+                {contact.contactName}: {contact.phoneNumber}{" "}
+                <Icon
+                  name="call-outline"
+                  size={50}
+                  color="#004f71"
+                  onPress={() => {
+                    Linking.openURL(`tel:${contact.phoneNumber}`);
+                  }}
+                />
+                <Icon
+                  name="chatbox-outline"
+                  size={50}
+                  color="#004f71"
+                  onPress={() => {
+                    Linking.openURL(
+                      `sms:${contact.phoneNumber}?body=${encodeURIComponent(
+                        "Help is here!"
+                      )}`
+                    );
+                  }}
+                />
               </Text>
+
               <View style={styles.actionButtons}>
                 <TouchableOpacity
                   onPress={() => handleEdit(index)}
