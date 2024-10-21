@@ -40,8 +40,9 @@ export default function RootLayout() {
       <SafeAreaView>
       <Header></Header>
       </SafeAreaView>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false}} />
+        <Stack screenOptions={{}}>
+          <Stack.Screen name="(tabs)" 
+          options={{headerShown: false}} />
           <Stack.Screen name="+not-found" />
         </Stack>
     </ThemeProvider>

@@ -26,7 +26,7 @@ export default function TabLayout() {
           href: null,
         }}
         />
-        <Tabs.Screen
+        {/* <Tabs.Screen
           name="helpMe/additionalPages/addContacts"
           options={{
             href: null,
@@ -37,9 +37,9 @@ export default function TabLayout() {
           options={{
             href: null,
           }}
-        />
+        /> */}
         <Tabs.Screen
-          name="helpMe/index"
+          name="helpMe"
           options={{
             title: 'Help Me',
             tabBarIcon: ({ color, focused }) => (

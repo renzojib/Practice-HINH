@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 
 type Props = PropsWithChildren<{
     value: string,
-    route: () => void,
+    onPress: () => void,
   }>;
 function Button (prop: Props ) {
   const [isButtonPressed, setIsButtonPressed] = useState(false)
@@ -12,7 +12,7 @@ function Button (prop: Props ) {
   function handlePress() {
     setIsButtonPressed(true)
     setTimeout(() => {
-      prop.route()
+      prop.onPress()
     }, 50)
   }
 
