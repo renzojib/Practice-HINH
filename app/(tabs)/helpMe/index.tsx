@@ -53,7 +53,7 @@ const HelpMe = () => {
             <Text style={styles.titleText}>Help Me</Text>
             <Button value="Get Help Now" onPress={() => router.push("/(tabs)/helpMe/additionalPages/getHelpNow")}></Button>
             <Button value="My Support Network" onPress={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
-            <Button value="Emergency location" onPress={() => openMap("9105 Cedar Ave, Cleveland Ohio")}></Button>
+            <Button value="Emergency Location" onPress={() => openMap("9105 Cedar Ave, Cleveland Ohio")}></Button>
             <Button value="My Support Network" onPress={() => router.push("/(tabs)/helpMe/additionalPages/addContacts")}></Button>
         </View>
     )
