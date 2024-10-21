@@ -230,7 +230,11 @@ function MyForm() {
                   size={50}
                   color="#004f71"
                   onPress={() => {
-                    Linking.openURL(`sms:${contact.phoneNumber}`);
+                    Linking.openURL(
+                      `sms:${contact.phoneNumber}?body=${encodeURIComponent(
+                        "Help is here!"
+                      )}`
+                    );
                   }}
                 />
               </Text>
