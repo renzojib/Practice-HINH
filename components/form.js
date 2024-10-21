@@ -12,6 +12,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import AsyncStorage from "@react-native-async-storage/async-storage"; // Import AsyncStorage
 import { Collapsible } from "./Collapsible";
+import Icon from "react-native-vector-icons/Ionicons";
 
 function MyForm() {
   const {
@@ -215,16 +216,25 @@ function MyForm() {
               <Text
                 style={[styles.contactCardText, { color: colors.textColor }]}
               >
-                {contact.contactName}:
-                <Text
+                {contact.contactName}: {contact.phoneNumber}{" "}
+                <Icon
+                  name="call-outline"
+                  size={50}
+                  color="#004f71"
                   onPress={() => {
                     Linking.openURL(`tel:${contact.phoneNumber}`);
                   }}
-                >
-                  {" "}
-                  {contact.phoneNumber}
-                </Text>
+                />
+                <Icon
+                  name="chatbox-outline"
+                  size={50}
+                  color="#004f71"
+                  onPress={() => {
+                    Linking.openURL(`sms:${contact.phoneNumber}`);
+                  }}
+                />
               </Text>
+
               <View style={styles.actionButtons}>
                 <TouchableOpacity
                   onPress={() => handleEdit(index)}
